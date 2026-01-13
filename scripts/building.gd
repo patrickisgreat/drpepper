@@ -225,14 +225,48 @@ func can_craft_recipe(recipe: Dictionary) -> bool:
 
 func interact():
 	"""Called when player interacts with this building"""
-	print("Interacting with ", building_name)
+	print("\nInteracting with ", building_name)
 
-	# Show crafting menu (will be implemented in UI phase)
 	if is_crafting:
+		# Show progress
 		var time_left = (1.0 - crafting_progress) * current_recipe.get("time", 5.0)
-		print("Crafting in progress... ", int(time_left), " seconds remaining")
-	else:
-		print("Press C to open crafting menu (coming soon!)")
+		print("Currently crafting: ", current_recipe["name"])
+		print("Time remaining: ", int(time_left), " seconds")
+		return
+
+	# Find craftable recipes for this building type
+	var available_recipes = []
+
+	for recipe_id in CraftingSystem.recipes:
+		var recipe = CraftingSystem.recipes[recipe_id]
+
+		# Check if this building can craft this recipe
+		if can_craft_recipe(recipe):
+			# Check if player has resources
+			if Inventory.has_resources_for_recipe(recipe["inputs"]):
+				available_recipes.append(recipe_id)
+
+	if available_recipes.size() == 0:
+		print("No recipes available! You may need more resources or a different building type.")
+		print("\nTry:")
+		print("  - Lab Station: Basic compounds, weapons")
+		print("  - Refinery: Quantum dot precursors")
+		print("  - Synthesis Chamber: Quantum dot crystals")
+		return
+
+	# Show available recipes
+	print("\nAvailable recipes:")
+	for i in range(available_recipes.size()):
+		var recipe_id = available_recipes[i]
+		var recipe = CraftingSystem.recipes[recipe_id]
+		print("  ", i + 1, ". ", recipe["name"])
+
+	# Auto-start the first available recipe
+	var first_recipe_id = available_recipes[0]
+	var first_recipe = CraftingSystem.recipes[first_recipe_id]
+
+	print("\nStarting: ", first_recipe["name"])
+	start_recipe(first_recipe)
 
 
 # ============================================================================

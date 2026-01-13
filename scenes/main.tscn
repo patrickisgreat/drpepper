@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cko8vf4nvu4l6"]
+[gd_scene load_steps=8 format=3 uid="uid://cko8vf4nvu4l6"]
 
 [ext_resource type="PackedScene" uid="uid://b8yrjxrxmu2aq" path="res://scenes/player/player.tscn" id="1_1"]
 [ext_resource type="PackedScene" uid="uid://c5yx3hl3rmpn7" path="res://scenes/resources/resource_node.tscn" id="2_1"]
 [ext_resource type="Script" path="res://scripts/build_manager.gd" id="3_1"]
+[ext_resource type="Script" path="res://scripts/wave_manager.gd" id="4_1"]
+[ext_resource type="PackedScene" uid="uid://h8yx3hl3rmpn3" path="res://scenes/ui/hud.tscn" id="5_1"]
+[ext_resource type="PackedScene" uid="uid://p7yx3hl3rmpn2" path="res://scenes/ui/puzzle_ui.tscn" id="6_1"]
 
 [sub_resource type="GDScript" id="GDScript_1"]
 script/source = "# Main Game Scene
@@ -16,9 +19,12 @@ func _ready():
 	print(\"=\"*60)
 	print(\"\\nControls:\")
 	print(\"  WASD / Arrow Keys - Move\")
-	print(\"  E - Interact with objects\")
-	print(\"  B - Enter build mode (coming soon)\")
-	print(\"  Left Click - Attack (coming soon)\")
+	print(\"  E - Interact with resource nodes and buildings\")
+	print(\"  B - Enter build mode\")
+	print(\"  1, 2, 3 - Select building type (in build mode)\")
+	print(\"  Left Click - Place building (in build mode)\")
+	print(\"\\nBuildings craft items when you interact with them!\")
+	print(\"Survive the waves and create quantum dots to win!\")
 	print(\"\\nThe fate of humanity rests on your shoulders, Dr. Pepper!\")
 	print(\"=\"*60 + \"\\n\")
 "
@@ -39,6 +45,9 @@ position = Vector2(640, 360)
 
 [node name="BuildManager" type="Node2D" parent="."]
 script = ExtResource("3_1")
+
+[node name="WaveManager" type="Node2D" parent="."]
+script = ExtResource("4_1")
 
 [node name="Resources" type="Node2D" parent="."]
 
@@ -69,3 +78,8 @@ resource_type = "Copper"
 [node name="LithiumNode1" parent="Resources" instance=ExtResource("2_1")]
 position = Vector2(700, 550)
 resource_type = "Lithium"
+
+[node name="HUD" parent="." instance=ExtResource("5_1")]
+
+[node name="PuzzleUI" parent="." instance=ExtResource("6_1")]
+
