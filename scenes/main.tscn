@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=3 uid="uid://cko8vf4nvu4l6"]
+
+[ext_resource type="PackedScene" uid="uid://b8yrjxrxmu2aq" path="res://scenes/player/player.tscn" id="1_1"]
+[ext_resource type="PackedScene" uid="uid://c5yx3hl3rmpn7" path="res://scenes/resources/resource_node.tscn" id="2_1"]
+[ext_resource type="Script" path="res://scripts/build_manager.gd" id="3_1"]
+
+[sub_resource type="GDScript" id="GDScript_1"]
+script/source = "# Main Game Scene
+# This is the root scene that contains the entire game world
+
+extends Node2D
+
+func _ready():
+	print(\"\\n\" + \"=\"*60)
+	print(\"DR. PEPPER AND THE BILLIONAIRE'S ASSASSIN DEATH SQUAD\")
+	print(\"=\"*60)
+	print(\"\\nControls:\")
+	print(\"  WASD / Arrow Keys - Move\")
+	print(\"  E - Interact with objects\")
+	print(\"  B - Enter build mode (coming soon)\")
+	print(\"  Left Click - Attack (coming soon)\")
+	print(\"\\nThe fate of humanity rests on your shoulders, Dr. Pepper!\")
+	print(\"=\"*60 + \"\\n\")
+"
+
+[node name="Main" type="Node2D"]
+script = SubResource("GDScript_1")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_left = -2000.0
+offset_top = -2000.0
+offset_right = 4000.0
+offset_bottom = 4000.0
+color = Color(0.15, 0.2, 0.15, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Player" parent="." instance=ExtResource("1_1")]
+position = Vector2(640, 360)
+
+[node name="BuildManager" type="Node2D" parent="."]
+script = ExtResource("3_1")
+
+[node name="Resources" type="Node2D" parent="."]
+
+[node name="IronNode1" parent="Resources" instance=ExtResource("2_1")]
+position = Vector2(400, 300)
+resource_type = "Iron"
+
+[node name="IronNode2" parent="Resources" instance=ExtResource("2_1")]
+position = Vector2(900, 400)
+resource_type = "Iron"
+
+[node name="SulfurNode1" parent="Resources" instance=ExtResource("2_1")]
+position = Vector2(500, 500)
+resource_type = "Sulfur"
+
+[node name="CarbonNode1" parent="Resources" instance=ExtResource("2_1")]
+position = Vector2(800, 250)
+resource_type = "Carbon"
+
+[node name="SilicaNode1" parent="Resources" instance=ExtResource("2_1")]
+position = Vector2(450, 600)
+resource_type = "Silica"
+
+[node name="CopperNode1" parent="Resources" instance=ExtResource("2_1")]
+position = Vector2(1000, 300)
+resource_type = "Copper"
+
+[node name="LithiumNode1" parent="Resources" instance=ExtResource("2_1")]
+position = Vector2(700, 550)
+resource_type = "Lithium"

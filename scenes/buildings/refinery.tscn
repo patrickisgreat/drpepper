@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4yx3hl3rmpn9"]
+
+[ext_resource type="Script" path="res://scripts/building.gd" id="1_1"]
+
+[node name="Refinery" type="StaticBody2D"]
+script = ExtResource("1_1")
+building_type = 1
+building_name = "Refinery"
+build_cost = {
+"Copper": 4,
+"Iron": 8
+}
